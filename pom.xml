@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>es.uniovi.asw</groupId>
-    <artifactId>voters3b</artifactId>
-	<name>voters3b</name>
+    <artifactId>voters2b</artifactId>
+	<name>voters2b</name>
     <version>0.0.1</version>
 
     <parent>

@@ -9,28 +9,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
-public class MainController {
-	
+public class MainController
+{
 	private final VoterRepository voterRepository;
 	
+	
 	@Autowired
-	MainController(VoterRepository voterRepository) {
+	MainController(VoterRepository voterRepository)
+	{
 		this.voterRepository = voterRepository;
 	}
 	
-    @RequestMapping(value="/voter",method= RequestMethod.POST,
-    		headers = "Accept=application/json",
-            produces = "application/json")
-    public Voter getVoter(@RequestParam("name") String name) {
-        return this.voterRepository.findByName(name);
+	
+	@RequestMapping
+			(value ="/voter",
+			method = RequestMethod.POST,
+			headers = "Accept=application/json",
+			produces = "application/json")
+	public Voter getVoter(@RequestParam("login") String email, @RequestParam("password") String password)
+	{
+		Voter voter = this.voterRepository.findByEmail(email);
+		
+		if(voter == null || !voter.getPassword().equals(password))
+		{
+			return null;  // No encontrado
+		}
+		
+		return voter;
     }
-    
-    
-    @RequestMapping("/")
-    public String landing() {
-        return "User Management Service";
-    }
-    
-
+	
+	
+	@RequestMapping("/")
+	public String landing()
+	{
+		return "User Management Service";
+	}
 }

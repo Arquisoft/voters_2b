@@ -6,6 +6,6 @@ notifications:
     recipients:
       - UO237104@uniovi.es
       - uo240772@uniovi.es
-	  - uo239995@uniovi.es
+      - uo239995@uniovi.es
     on_success: change
     on_failure: always

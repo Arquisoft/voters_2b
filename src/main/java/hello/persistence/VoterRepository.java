@@ -1,4 +1,4 @@
-package hello;
+package hello.persistence;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

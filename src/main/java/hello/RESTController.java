@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hello.model.Voter;
 import hello.model.VoterJSON;
+import hello.persistence.VoterRepository;
 
 
 @RestController
@@ -56,6 +57,12 @@ public class RESTController {
 			log.info(v.toString());
 		}
     		
+    }
+    
+    
+    @RequestMapping("/")
+    public String landing() {
+          return "User Management Service";
     }
     
 }

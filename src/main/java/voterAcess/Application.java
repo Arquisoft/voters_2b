@@ -23,7 +23,8 @@ public class Application {
 			return (args) -> { 
 				// save a voter
 				repository.save(new Voter("Jack", "980151","pepe@gmail.com",1,"1"));
-
+//				repository.save(new Voter("Jack", "980151","pepe@gmail.com",1,"1"));
+				
 				/*
 				// fetch all customers
 				log.info("Customers found with findAll():");
@@ -41,7 +42,8 @@ public class Application {
 		};
 	}
 	
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
     	SpringApplication.run(Application.class,args);
     }
   

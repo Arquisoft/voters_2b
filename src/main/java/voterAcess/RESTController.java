@@ -1,5 +1,7 @@
 package voterAcess;
 
+import javax.xml.ws.http.HTTPException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class RESTController {
     	if(user.getPassword().compareTo(voter.getPassword()) == 0)
     		return new VoterDAO(user);
     	else
-    		return null;
+    		throw new HTTPException(404); //404 exception
     }
     
     @RequestMapping(value="/changePassword",method= RequestMethod.POST, 

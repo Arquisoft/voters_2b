@@ -1,15 +1,15 @@
-package hello;
+package voterAcess.dao;
 
-public class ChangePassword {
+public class ChangePasswordDAO {
 	
 	private String email;
 	private String password;
 	private String repeatPassword;
 	private String newPassword;
 	
-	public ChangePassword(){};
+	public ChangePasswordDAO(){};
 	
-	public ChangePassword(String email, String password, String repeatPassword, String newPassword) {
+	public ChangePasswordDAO(String email, String password, String repeatPassword, String newPassword) {
 		super();
 		this.email = email;
 		this.password = password;

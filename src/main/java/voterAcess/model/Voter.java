@@ -1,4 +1,4 @@
-package hello.model;
+package voterAcess.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

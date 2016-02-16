@@ -1,4 +1,4 @@
-package hello;
+package voterAcess;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import hello.model.Voter;
-import hello.model.VoterJSON;
-import hello.persistence.VoterRepository;
+import voterAcess.dao.ChangePasswordDAO;
+import voterAcess.dao.VoterDAO;
+import voterAcess.model.Voter;
+import voterAcess.persistence.VoterRepository;
 
 
 @RestController
@@ -29,14 +29,14 @@ public class RESTController {
     @RequestMapping(value="/user",method= RequestMethod.POST,
     		headers ="Accept=application/json",
     		produces = "application/json")
-    public VoterJSON getInfoVoter(@RequestBody Voter voter) {
+    public VoterDAO getInfoVoter(@RequestBody Voter voter) {
     	
     	log.info("Datos peticion: "+voter.getEmail()+" "+voter.getPassword());
     	
     	Voter user = this.voterRepository.findByEmail(voter.getEmail());
     	
     	if(user.getPassword().compareTo(voter.getPassword()) == 0)
-    		return new VoterJSON(user);
+    		return new VoterDAO(user);
     	else
     		return null;
     }
@@ -44,7 +44,7 @@ public class RESTController {
     @RequestMapping(value="/changePassword",method= RequestMethod.POST, 
     		headers = "Accept=application/json",
     		produces = "application/json")
-    public void changePassword(@RequestBody ChangePassword data) {
+    public void changePassword(@RequestBody ChangePasswordDAO data) {
     	Voter voter = this.voterRepository.findByEmail(data.getEmail());
     	if(voter!=null){
     		if(data.getPassword().compareTo(data.getRepeatPassword())==0)

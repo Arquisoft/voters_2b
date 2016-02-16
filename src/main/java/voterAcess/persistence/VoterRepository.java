@@ -1,9 +1,11 @@
-package hello.persistence;
+package voterAcess.persistence;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
-import hello.model.Voter;
+import voterAcess.model.Voter;
+
+
 
 public interface VoterRepository extends CrudRepository<Voter, Long> {
 	

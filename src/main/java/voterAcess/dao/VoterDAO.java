@@ -1,14 +1,16 @@
-package hello.model;
+package voterAcess.dao;
 
-public class VoterJSON {
+import voterAcess.model.Voter;
+
+public class VoterDAO {
 	private String email;
 	private String name;
 	private String nif;
 	private int poolingState;
 
-	public VoterJSON() {
+	public VoterDAO() {
 	}
-	public VoterJSON(Voter voter) {
+	public VoterDAO(Voter voter) {
 		super();
 		this.email = voter.getEmail();
 		this.name = voter.getName();

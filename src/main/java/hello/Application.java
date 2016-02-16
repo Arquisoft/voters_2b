@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import hello.model.Voter;
+
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
@@ -16,7 +18,7 @@ public class Application {
 
 	 @Bean
 		public CommandLineRunner init(VoterRepository repository) {
-			return (args) -> {
+			return (args) -> { 
 				// save a voter
 				repository.save(new Voter("Jack", "980151","pepe@gmail.com",1,"1"));
 
@@ -48,7 +50,7 @@ public class Application {
 		}
 	
     public static void main(String[] args) {
-    	SpringApplication.run(Application.class, args);
+    	SpringApplication.run(Application.class,args);
     }
    
 }

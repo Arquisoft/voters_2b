@@ -18,7 +18,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import voterAcess.Application;
-import webService.Error404Response;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,36 +42,58 @@ public class RestControllerTest
 	
 	
 	@Test
-	public void getLanding() throws Exception
+	public void test() throws Exception
 	{
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		assertThat(response.getBody(), equalTo("User Management Service"));
-		
-		
-		// =======================
-		//  Se encuentra el voter
-		// =======================
-		
+	}
+	
+	@Test
+	public void voterEncontradoYcontraseñaCorrecta() throws Exception
+	{
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/user";
 		
-		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
 		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 		
-		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+		response = template.postForEntity(userURI, new PeticionServicioWeb("josep@hotmail.com", "2"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"josep@hotmail.com\",\"name\":\"Jose\",\"nif\":\"730438\",\"poolingState\":1}"));
 		
-		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+		response = template.postForEntity(userURI, new PeticionServicioWeb("PaGu@terra.com", "3"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"PaGu@terra.com\",\"name\":\"Paula\",\"nif\":\"210953\",\"poolingState\":1}"));
 		
-		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+		response = template.postForEntity(userURI, new PeticionServicioWeb("alf@hotmail.com", "4"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"alf@hotmail.com\",\"name\":\"Alfonso\",\"nif\":\"455846\",\"poolingState\":1}"));
 		
-		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("GlezIr@hotmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"GlezIr@hotmail.com\",\"name\":\"Irene\",\"nif\":\"565861\",\"poolingState\":2}"));
+		
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("fcano@terra.com", "2"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"fcano@terra.com\",\"name\":\"Fernando\",\"nif\":\"564512\",\"poolingState\":3}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("vinu@hotmail.com", "3"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"vinu@hotmail.com\",\"name\":\"Vinuesa\",\"nif\":\"514685\",\"poolingState\":3}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("soto@hotmail.com", "4"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"soto@hotmail.com\",\"name\":\"Sotorrío\",\"nif\":\"314896\",\"poolingState\":3}"));
+		
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("hg@gmail.com", "5"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"hg@gmail.com\",\"name\":\"Hugo\",\"nif\":\"214848\",\"poolingState\":4}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("diana23@hotmail.com", "6"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"diana23@hotmail.com\",\"name\":\"Diana\",\"nif\":\"197235\",\"poolingState\":4}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("javiG_6@gmail.com", "7"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"javiG_6@gmail.com\",\"name\":\"Javier\",\"nif\":\"156585\",\"poolingState\":4}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés@terra.com", "8"), String.class);
+		assertThat(response.getBody(), equalTo("{\"email\":\"luisValdés@terra.com\",\"name\":\"Luis\",\"nif\":\"126945\",\"poolingState\":4}"));
+	}
 		
 		// ====================================================
 		//  Se encuentra el voter, pero la contraseña está mal
@@ -83,9 +104,7 @@ public class RestControllerTest
 		//== No funciona todavía ==
 //		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
 //		assertThat(response.getBody(), equalTo("{404 Not found}"));
-		
-		
-	}
+	
 	
 	public class PeticionServicioWeb
 	{

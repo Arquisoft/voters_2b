@@ -44,7 +44,7 @@ public class RESTController
 			return new VoterInfoResponse(user);
 		
 		else
-			throw null; //404 exception
+			return null; //404 exception
 	}
 	
 	

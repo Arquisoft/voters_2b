@@ -3,6 +3,7 @@ package voterAcess.webService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import voterAcess.model.Voter;
 import voterAcess.persistence.VoterRepository;
 import voterAcess.webService.responses.ChangePasswordResponse;
+import voterAcess.webService.responses.ErrorResponse;
 import voterAcess.webService.responses.VoterInfoResponse;
 
 
@@ -21,6 +23,10 @@ public class RESTController
 	
 	private final VoterRepository voterRepository;
 	
+	@ExceptionHandler(ErrorResponse.class)
+	public String handleErrorResponseNotFound(){
+		return "{404 Not found}";
+	}
 	
 	@Autowired
 	RESTController(VoterRepository voterRepository)
@@ -40,11 +46,11 @@ public class RESTController
 		Voter user = this.voterRepository.findByEmail(voter.getEmail());
 		
 		
-		if(user.getPassword().compareTo(voter.getPassword()) == 0)
+		if(user!=null && user.getPassword().compareTo(voter.getPassword()) == 0)
 			return new VoterInfoResponse(user);
 		
 		else
-			return null; //404 exception
+			throw new ErrorResponse(); //404 exception
 	}
 	
 	
@@ -76,6 +82,7 @@ public class RESTController
 		else
 		{
 			// Voter no encontrado
+			throw new ErrorResponse();
 		}
 		
 		for (Voter v : this.voterRepository.findAll())
@@ -90,4 +97,7 @@ public class RESTController
 	{
 		return "User Management Service";
 	}
+	
+	
+	
 }

@@ -93,17 +93,15 @@ public class RestControllerTest
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés@terra.com", "8"), String.class);
 		assertThat(response.getBody(), equalTo("{\"email\":\"luisValdés@terra.com\",\"name\":\"Luis\",\"nif\":\"126945\",\"poolingState\":4}"));
+		//404 Not Found
+		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
 	}
 		
 		// ====================================================
 		//  Se encuentra el voter, pero la contraseña está mal
 		// ====================================================
 		
-		
-		
-		//== No funciona todavía ==
-//		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
-//		assertThat(response.getBody(), equalTo("{404 Not found}"));
 	
 	
 	public class PeticionServicioWeb

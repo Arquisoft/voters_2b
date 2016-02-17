@@ -1,15 +1,15 @@
-package voterAcess.dao;
+package webService;
 
-public class ChangePasswordDAO {
+public class ChangePasswordResponse {
 	
 	private String email;
 	private String password;
 	private String repeatPassword;
 	private String newPassword;
 	
-	public ChangePasswordDAO(){};
+	public ChangePasswordResponse(){};
 	
-	public ChangePasswordDAO(String email, String password, String repeatPassword, String newPassword) {
+	public ChangePasswordResponse(String email, String password, String repeatPassword, String newPassword) {
 		super();
 		this.email = email;
 		this.password = password;

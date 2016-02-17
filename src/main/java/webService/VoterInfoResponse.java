@@ -1,16 +1,16 @@
-package voterAcess.dao;
+package webService;
 
 import voterAcess.model.Voter;
 
-public class VoterDAO {
+public class VoterInfoResponse {
 	private String email;
 	private String name;
 	private String nif;
 	private int poolingState;
 
-	public VoterDAO() {
+	public VoterInfoResponse() {
 	}
-	public VoterDAO(Voter voter) {
+	public VoterInfoResponse(Voter voter) {
 		super();
 		this.email = voter.getEmail();
 		this.name = voter.getName();

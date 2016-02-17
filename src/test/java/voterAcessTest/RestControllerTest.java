@@ -1,11 +1,9 @@
-package hello;
+package voterAcessTest;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
-
-import javax.xml.ws.http.HTTPException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +18,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import voterAcess.Application;
+import webService.Error404Response;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
-public class MainControllerTest
+public class RestControllerTest
 {
 	@Value("${local.server.port}")
 	private int port;
@@ -53,14 +52,14 @@ public class MainControllerTest
 		// ==========================================
 		
 		String userURI = base.toString() + "/user";
-		response = template.postForEntity(userURI, new PeticionServicioWeb("pepe@gmail.com", "1"), String.class);
+		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
 		
-		assertThat(response.getBody(), equalTo("{\"email\":\"pepe@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+		assertThat(response.getBody(), equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 		
 		
 		//== No funciona todavía ==
-//		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
-//		assertThat(response.getBody(), equalTo(new HTTPException(404)));
+		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo(new Error404Response()));
 		
 		
 	}

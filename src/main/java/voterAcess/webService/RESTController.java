@@ -1,4 +1,4 @@
-package webService;
+package voterAcess.webService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import voterAcess.model.Voter;
 import voterAcess.persistence.VoterRepository;
+import voterAcess.webService.responses.ChangePasswordResponse;
+import voterAcess.webService.responses.VoterInfoResponse;
 
 
 @RestController
@@ -42,8 +44,9 @@ public class RESTController
 			return new VoterInfoResponse(user);
 		
 		else
-			throw new Error404Response(); //404 exception
+			throw null; //404 exception
 	}
+	
 	
 	@RequestMapping(value="/changePassword",
 			method=RequestMethod.POST, 
@@ -56,11 +59,23 @@ public class RESTController
 		if(voter!=null)
 		{
 			if(data.getPassword().compareTo(data.getRepeatPassword())==0)
+			{
 				if(data.getPassword().compareTo(voter.getPassword())==0)
 				{
 					voter.setPassword(data.getNewPassword());
 					this.voterRepository.save(voter);
 				}
+			}
+			
+			else
+			{
+				// Contraseña inválida
+			}
+		}
+		
+		else
+		{
+			// Voter no encontrado
 		}
 		
 		for (Voter v : this.voterRepository.findAll())

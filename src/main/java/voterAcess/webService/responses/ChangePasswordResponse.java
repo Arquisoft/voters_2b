@@ -1,4 +1,4 @@
-package webService;
+package voterAcess.webService.responses;
 
 public class ChangePasswordResponse {
 	

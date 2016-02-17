@@ -1,4 +1,4 @@
-package webService;
+package voterAcess.webService.responses;
 
 import voterAcess.model.Voter;
 

@@ -93,15 +93,79 @@ public class RestControllerTest
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés@terra.com", "8"), String.class);
 		assertThat(response.getBody(), equalTo("{\"email\":\"luisValdés@terra.com\",\"name\":\"Luis\",\"nif\":\"126945\",\"poolingState\":4}"));
-		//404 Not Found
+	}
+	
+	@Test
+	public void voterNoEncontrado() throws Exception
+	{
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/user";
+		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
 		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("h_g@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés5@terra.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("Sfoto@hotmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("okf@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("vinu@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), equalTo("{404 Not found}"));
 	}
-		
-		// ====================================================
-		//  Se encuentra el voter, pero la contraseña está mal
-		// ====================================================
-		
+	
+//	@Test
+//	public void voterEncontradoYcontraseñaIncorrecta() throws Exception
+//	{
+//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+//		String userURI = base.toString() + "/user";
+//		
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "11"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("josep@hotmail.com", "54"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("PaGu@terra.com", "21"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("alf@hotmail.com", "09"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("GlezIr@hotmail.com", "ngft"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("fcano@terra.com", "345"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("vinu@hotmail.com", "83"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("soto@hotmail.com", "64"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("hg@gmail.com", "345"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("diana23@hotmail.com", "896"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("javiG_6@gmail.com", "09"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//		
+//		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés@terra.com", "12"), String.class);
+//		assertThat(response.getBody(), equalTo("{_______}"));
+//	}
 	
 	
 	public class PeticionServicioWeb

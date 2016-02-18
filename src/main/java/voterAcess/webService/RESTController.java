@@ -24,7 +24,8 @@ public class RESTController
 	private final VoterRepository voterRepository;
 	
 	@ExceptionHandler(ErrorResponse.class)
-	public String handleErrorResponseNotFound(){
+	public String handleErrorResponseNotFound()
+	{
 		return "{404 Not found}";
 	}
 	
@@ -47,12 +48,31 @@ public class RESTController
 		
 		
 		if(user!=null && user.getPassword().compareTo(voter.getPassword()) == 0)
+		{
 			return new VoterInfoResponse(user);
+		}
 		
 		else
+		{
 			throw new ErrorResponse(); //404 exception
+		}
 	}
 	
+	/**
+	 * Experimental: Si se recibe una peticion get devolver una página
+	 * html con un formulario para hacer una petición post
+	 * 
+	 * @return   documento html con un formulario para pedir los datos del votante
+	 * 
+	 */
+	@RequestMapping(value="/user",
+			method= RequestMethod.GET,
+			headers ="Accept=application/json",
+			produces = "application/json")
+	public String getPageInfoVoter()
+	{
+		return null;
+	}
 	
 	@RequestMapping(value="/changePassword",
 			method=RequestMethod.POST, 
@@ -73,15 +93,14 @@ public class RESTController
 				}
 			}
 			
-			else
+			else // Contraseña inválida
 			{
-				// Contraseña inválida
+				
 			}
 		}
 		
-		else
+		else // Voter no encontrado
 		{
-			// Voter no encontrado
 			throw new ErrorResponse();
 		}
 		
@@ -97,7 +116,4 @@ public class RESTController
 	{
 		return "User Management Service";
 	}
-	
-	
-	
 }

@@ -95,7 +95,7 @@ public class RestControllerTest
 		assertThat(response.getBody(), equalTo("{\"email\":\"luisValdés@terra.com\",\"name\":\"Luis\",\"nif\":\"126945\",\"poolingState\":4}"));
 	}
 	
-	/*
+	
 	@Test
 	public void voterNoEncontrado() throws Exception
 	{
@@ -103,24 +103,24 @@ public class RestControllerTest
 		String userURI = base.toString() + "/user";
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("paco@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("h_g@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("luisValdés5@terra.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("Sfoto@hotmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("okf@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("vinu@gmail.com", "1"), String.class);
-		assertThat(response.getBody(), equalTo("{404 Not found}"));
+		assertThat(response.getBody(), equalTo("Not Found"));
 	}
-	*/
+	
 //	@Test
 //	public void voterEncontradoYcontraseñaIncorrecta() throws Exception
 //	{

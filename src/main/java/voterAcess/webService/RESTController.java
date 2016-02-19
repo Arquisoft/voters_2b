@@ -3,6 +3,7 @@ package voterAcess.webService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,19 +16,13 @@ import voterAcess.webService.responses.ChangePasswordResponse;
 import voterAcess.webService.responses.ErrorResponse;
 import voterAcess.webService.responses.VoterInfoResponse;
 
-
+@Controller
 @RestController
 public class RESTController
 {
 	private static final Logger log = LoggerFactory.getLogger(RESTController.class);
 	
 	private final VoterRepository voterRepository;
-	
-	@ExceptionHandler(ErrorResponse.class)
-	public String handleErrorResponseNotFound()
-	{
-		return "{404 Not found}";
-	}
 	
 	@Autowired
 	RESTController(VoterRepository voterRepository)

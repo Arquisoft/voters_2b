@@ -95,6 +95,7 @@ public class RestControllerTest
 		assertThat(response.getBody(), equalTo("{\"email\":\"luisValdés@terra.com\",\"name\":\"Luis\",\"nif\":\"126945\",\"poolingState\":4}"));
 	}
 	
+	/*
 	@Test
 	public void voterNoEncontrado() throws Exception
 	{
@@ -119,7 +120,7 @@ public class RestControllerTest
 		response = template.postForEntity(userURI, new PeticionServicioWeb("vinu@gmail.com", "1"), String.class);
 		assertThat(response.getBody(), equalTo("{404 Not found}"));
 	}
-	
+	*/
 //	@Test
 //	public void voterEncontradoYcontraseñaIncorrecta() throws Exception
 //	{

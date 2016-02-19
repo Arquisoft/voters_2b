@@ -40,24 +40,6 @@ public class Application
 			repository.save(new Voter("Javier", "156585", "javiG_6@gmail.com", 4, "7"));
 			repository.save(new Voter("Luis", "126945", "luisValdés@terra.com", 4, "8"));
 			
-			/*
-				// fetch all customers
-				log.info("Customers found with findAll():");
-				log.info("-------------------------------");
-				
-				for (Customer customer : repository.findAll())
-				{
-					log.info(customer.toString());
-				}
-	            
-	            log.info("");
-				
-				
-				// fetch an individual customer by ID
-				Customer customer = repository.findOne(1L);
-				log.info("Customer found with findOne(1L):");
-				log.info("--------------------------------");
-			 */
 		};
 	}
 	

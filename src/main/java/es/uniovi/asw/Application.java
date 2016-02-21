@@ -1,4 +1,4 @@
-package voterAcess;
+package es.uniovi.asw;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import voterAcess.model.Voter;
-import voterAcess.persistence.VoterRepository;
+import es.uniovi.asw.dbManagement.model.Voter;
+import es.uniovi.asw.dbManagement.persistence.VoterRepository;
+
+
 
 
 @Configuration

@@ -1,4 +1,4 @@
-package voterAcess.webService.responses;
+package es.uniovi.asw.voterAcess.webService.responses;
 
 public class ChangePasswordResponse {
 	

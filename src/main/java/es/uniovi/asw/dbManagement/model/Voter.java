@@ -1,4 +1,4 @@
-package voterAcess.model;
+package es.uniovi.asw.dbManagement.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

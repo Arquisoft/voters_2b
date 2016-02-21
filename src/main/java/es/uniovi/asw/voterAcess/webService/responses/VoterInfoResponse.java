@@ -1,7 +1,11 @@
-package voterAcess.webService.responses;
+package es.uniovi.asw.voterAcess.webService.responses;
 
-import voterAcess.model.Voter;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import es.uniovi.asw.dbManagement.model.Voter;
+
+@XmlRootElement(name = "VoterInfoResponse")
 public class VoterInfoResponse {
 	private String email;
 	private String name;
@@ -20,24 +24,32 @@ public class VoterInfoResponse {
 	public String getEmail() {
 		return email;
 	}
+	
+	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	public String getName() {
 		return name;
 	}
+	
+	@XmlElement
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getNif() {
 		return nif;
 	}
+	
+	@XmlElement
 	public void setNif(String nif) {
 		this.nif = nif;
 	}
 	public int getPoolingState() {
 		return poolingState;
 	}
+	
+	 @XmlElement
 	public void setPoolingState(int poolingState) {
 		this.poolingState = poolingState;
 	}

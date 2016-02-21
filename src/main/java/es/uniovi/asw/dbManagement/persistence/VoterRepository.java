@@ -1,10 +1,8 @@
-package voterAcess.persistence;
+package es.uniovi.asw.dbManagement.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 
-import voterAcess.model.Voter;
-
-
+import es.uniovi.asw.dbManagement.model.Voter;
 
 public interface VoterRepository extends CrudRepository<Voter, Long>
 {

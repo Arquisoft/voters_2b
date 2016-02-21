@@ -43,16 +43,11 @@ public class GetVoterInfoController implements GetVoterInfo
 		
 		Voter user = this.voterRepository.findByEmail(voter.getEmail());
 		
-		
 		if(user!=null && user.getPassword().compareTo(voter.getPassword()) == 0)
-		{
 			return new VoterInfoResponse(user);
-		}
-		
 		else
-		{
 			throw new ErrorResponse(); //404 exception
-		}
+		
 	}
 	
 	
@@ -71,6 +66,7 @@ public class GetVoterInfoController implements GetVoterInfo
 	{
 		return null;
 	}
+	
 	
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

@@ -20,8 +20,6 @@ import org.springframework.web.client.RestTemplate;
 import es.uniovi.asw.Application;
 
 
-
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

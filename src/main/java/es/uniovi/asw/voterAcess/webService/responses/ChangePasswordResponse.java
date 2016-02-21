@@ -4,16 +4,14 @@ public class ChangePasswordResponse {
 	
 	private String email;
 	private String password;
-	private String repeatPassword;
 	private String newPassword;
 	
 	public ChangePasswordResponse(){};
 	
-	public ChangePasswordResponse(String email, String password, String repeatPassword, String newPassword) {
+	public ChangePasswordResponse(String email, String password,String newPassword) {
 		super();
 		this.email = email;
 		this.password = password;
-		this.repeatPassword = repeatPassword;
 		this.newPassword = newPassword;
 	}
 
@@ -30,12 +28,7 @@ public class ChangePasswordResponse {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
-	}
+	
 	public String getNewPassword() {
 		return newPassword;
 	}

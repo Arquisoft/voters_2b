@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
+import es.uniovi.asw.voterAcess.ChangePassword;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
 import es.uniovi.asw.voterAcess.webService.responses.ErrorResponse;
 
 @RestController
 @Controller
-public class ChangePasswordController {
+public class ChangePasswordController implements ChangePassword{
 
 private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController.class);
 	
@@ -31,36 +32,31 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 	@RequestMapping(value="/changePassword",
 			method=RequestMethod.POST, 
 			headers = "Accept=application/json",
-			produces = "application/json")
-	public void changePassword(@RequestBody ChangePasswordResponse data)
-	{
+			produces="application/json")
+	public String changePassword(@RequestBody ChangePasswordResponse data) {
 		Voter voter = this.voterRepository.findByEmail(data.getEmail());
-		
-		if(voter!=null)
-		{
-			if(data.getPassword().compareTo(data.getRepeatPassword())==0)
-			{
-				if(data.getPassword().compareTo(voter.getPassword())==0)
-				{
-					voter.setPassword(data.getNewPassword());
-					this.voterRepository.save(voter);
-				}
+
+		if (voter != null) {
+			if (data.getPassword().compareTo(voter.getPassword()) == 0) {
+				voter.setPassword(data.getNewPassword());
+				this.voterRepository.save(voter);
+				return "{\"Resultado\":\"Contraseña cambiada correctamente\"}";
 			}
-			
-			else // Contraseña inválida
+
+			else 
 			{
 				
 			}
 		}
-		
+
 		else // Voter no encontrado
 		{
 			throw new ErrorResponse();
 		}
-		
-		for (Voter v : this.voterRepository.findAll())
-		{
+
+		for (Voter v : this.voterRepository.findAll()) {
 			log.info(v.toString());
 		}
+		throw new ErrorResponse();
 	}
 }

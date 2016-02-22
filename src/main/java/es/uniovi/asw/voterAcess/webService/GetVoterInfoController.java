@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.GetVoterInfo;
 import es.uniovi.asw.voterAcess.webService.responses.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.VoterInfoResponse;
+
 
 @RestController
 @Controller
@@ -51,7 +53,6 @@ public class GetVoterInfoController implements GetVoterInfo
 		
 		else
 			throw new ErrorResponse(); //404 exception
-		
 	}
 	
 	
@@ -62,11 +63,8 @@ public class GetVoterInfoController implements GetVoterInfo
 	 * @return   documento html con un formulario para pedir los datos del votante
 	 * 
 	 */
-	@RequestMapping(value="/user",
-			method= RequestMethod.GET,
-			headers ="Accept=application/json",
-			produces = "application/json")
-	public String getPageInfoVoter(Model model)
+	@RequestMapping(value="/user", method = RequestMethod.GET)
+	public String getPageInfoVoter()
 	{
 		return null;
 	}

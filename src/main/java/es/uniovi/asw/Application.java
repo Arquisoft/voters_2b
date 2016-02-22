@@ -12,8 +12,6 @@ import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 
 
-
-
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration

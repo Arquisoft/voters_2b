@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class GetVoterInfoController implements GetVoterInfo
 	
 	private final VoterRepository voterRepository;
 	
+	
 	@Autowired
 	GetVoterInfoController(VoterRepository voterRepository)
 	{
@@ -43,8 +45,10 @@ public class GetVoterInfoController implements GetVoterInfo
 		
 		Voter user = this.voterRepository.findByEmail(voter.getEmail());
 		
+		
 		if(user!=null && user.getPassword().compareTo(voter.getPassword()) == 0)
 			return new VoterInfoResponse(user);
+		
 		else
 			throw new ErrorResponse(); //404 exception
 		
@@ -62,7 +66,7 @@ public class GetVoterInfoController implements GetVoterInfo
 			method= RequestMethod.GET,
 			headers ="Accept=application/json",
 			produces = "application/json")
-	public String getPageInfoVoter()
+	public String getPageInfoVoter(Model model)
 	{
 		return null;
 	}
@@ -70,7 +74,8 @@ public class GetVoterInfoController implements GetVoterInfo
 	
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseNotFound(){
+	public String handleErrorResponseNotFound()
+	{
 		return HttpStatus.NOT_FOUND.getReasonPhrase();
 	}
 }

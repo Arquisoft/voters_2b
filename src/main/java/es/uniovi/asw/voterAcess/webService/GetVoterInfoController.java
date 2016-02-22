@@ -52,7 +52,7 @@ public class GetVoterInfoController implements GetVoterInfo
 	
 	
 	/**
-	 * Experimental: Si se recibe una peticion get devolver una página
+	 * Si se recibe una peticion get, devolver una página
 	 * html con un formulario para hacer una petición post
 	 * 
 	 * @return   documento html con un formulario para pedir los datos del votante

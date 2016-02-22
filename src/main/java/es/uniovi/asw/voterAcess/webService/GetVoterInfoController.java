@@ -4,15 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
@@ -22,7 +21,6 @@ import es.uniovi.asw.voterAcess.webService.responses.VoterInfoResponse;
 
 
 @RestController
-@Controller
 public class GetVoterInfoController implements GetVoterInfo
 {
 	private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController.class);
@@ -53,20 +51,6 @@ public class GetVoterInfoController implements GetVoterInfo
 		
 		else
 			throw new ErrorResponse(); //404 exception
-	}
-	
-	
-	/**
-	 * Si se recibe una peticion get, devolver una página
-	 * html con un formulario para hacer una petición post
-	 * 
-	 * @return   documento html con un formulario para pedir los datos del votante
-	 * 
-	 */
-	@RequestMapping(value="/user", method = RequestMethod.GET)
-	public String getPageInfoVoter()
-	{
-		return null;
 	}
 	
 	

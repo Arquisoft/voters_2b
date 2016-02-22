@@ -1,9 +1,25 @@
-<!Doctype html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Hola</title>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Hola</p>
+  	<h1>Iniciar Sesion</h1>
+   <form action="validarse" method="post">
+ 	<table align="left">
+    	<tr> 
+    		<td align="right">Email: </td>
+	    	<td><input type="text" name="email" align="left" size="15"/></td>
+      	</tr>
+      	<tr> 
+    		<td align="right">Contraseña: </td>
+	    	<td><input type="password" name="password" align="left" size="15"/></td>
+      	</tr>
+      	<tr> 
+	    	<td><input type="submit"  value="Enviar"/></td>
+      	</tr>
+      </table>
+  </form>
 </body>
 </html>

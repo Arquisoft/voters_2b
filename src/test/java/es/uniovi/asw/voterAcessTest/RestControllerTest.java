@@ -203,7 +203,37 @@ public class RestControllerTest
 		assertThat(response.getBody(), 
 				equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 	}
-	
+	@Test
+	public void camposEnBlanco(){
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/user";
+		//Usuario en blanco
+		response = template.postForEntity(userURI, new PeticionServicioWeb("", "12"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("", "54"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		
+		//Constraseña en blanco
+		response = template.postForEntity(userURI, new PeticionServicioWeb("PaGu@terra.com", ""), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("alf@hotmail.com", ""), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
+		
+		//Cambio de constraseña en blanco
+		String passwordURI = base.toString() + "/changePassword";
+		
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("PaGu@terra.com", "3",""), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The new Password can´t be empty\"}"));
+		
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("jkk@gmail.com", "1",""), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The new Password can´t be empty\"}"));
+		
+		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
+		assertThat(response.getBody(), 
+				equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+	}
 	public class PeticionServicioWeb
 	{
 		private String email;

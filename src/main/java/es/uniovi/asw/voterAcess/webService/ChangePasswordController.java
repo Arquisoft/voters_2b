@@ -3,19 +3,24 @@ package es.uniovi.asw.voterAcess.webService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebMvcProperties.View;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
+import es.uniovi.asw.dbManagement.UpdatePassword;
+import es.uniovi.asw.dbManagement.GetVoter;
+import es.uniovi.asw.dbManagement.impl.UpdatePasswordDB;
+import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.ChangePassword;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
-import es.uniovi.asw.voterAcess.webService.responses.ErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.error.PasswordConflict;
+import es.uniovi.asw.voterAcess.webService.responses.error.UserNotFound;
 
 @RestController
 @Controller
@@ -37,42 +42,38 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			produces="application/json")
 	public String changePassword(@RequestBody ChangePasswordResponse data)
 	{
-		Voter voter = this.voterRepository.findByEmail(data.getEmail());
+		log.info("Password: "+data.getPassword()+" New Password: "+data.getNewPassword());
+		
+		UpdatePassword cp = new UpdatePasswordDB(this.voterRepository);
+		GetVoter gv = new GetVoterDB(this.voterRepository);
+		Voter voter = gv.getVoter(data.getEmail());
 		
 		if (voter != null)
 		{
-			if (data.getPassword().compareTo(voter.getPassword()) == 0)
+			if(cp.changePassword(data.getPassword(),data.getNewPassword(), voter))
 			{
-				voter.setPassword(data.getNewPassword());
-				this.voterRepository.save(voter);
-				
 				return "{\"Resultado\":\"Contraseña cambiada correctamente\"}";
+			}else {
+				throw new PasswordConflict();
 			}
-			
-			else 
-			{
-				
-			}
-		}
-		
-		else // Voter no encontrado
+		}else // Voter no encontrado
 		{
-			throw new ErrorResponse();
+			throw new UserNotFound();
 		}
-		
-		for (Voter v : this.voterRepository.findAll())
-		{
-			log.info(v.toString());
-		}
-		
-		throw new ErrorResponse();
 	}
-	
-	
-	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
-	public ModelAndView getPagechangePassword()
+
+	@ExceptionHandler(UserNotFound.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseNotFound()
 	{
-		ModelAndView mav = new ModelAndView("user");
-		return mav;
+		return "{\"reason\": \"User not found\"}";
 	}
+	
+	@ExceptionHandler(PasswordConflict.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String passwordConflict()
+	{
+		return "{\"reason\": \"Password incorrect\"}";
+	}
+	
 }

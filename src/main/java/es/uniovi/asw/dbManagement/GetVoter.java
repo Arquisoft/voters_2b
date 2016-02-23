@@ -1,5 +1,7 @@
 package es.uniovi.asw.dbManagement;
 
-public interface GetVoter {
+import es.uniovi.asw.dbManagement.model.Voter;
 
+public interface GetVoter {
+	public Voter getVoter(String email);
 }

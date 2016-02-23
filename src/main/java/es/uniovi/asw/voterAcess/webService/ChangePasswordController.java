@@ -20,6 +20,8 @@ import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.ChangePassword;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 
@@ -47,6 +49,9 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 	{
 
 		log.info("Password: "+data.getPassword()+" New Password: "+data.getNewPassword());
+		
+		if(data.getNewPassword().equals(""))
+			throw new RequiredPasswordErrorResponse();
 		
 		UpdatePassword cp = new UpdatePasswordDB(this.voterRepository);
 		GetVoter gv = new GetVoterDB(this.voterRepository);
@@ -80,4 +85,10 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 		return "{\"reason\": \"Password incorrect\"}";
 	}
 	
+	@ExceptionHandler(RequiredUserErrorResponse.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseRequiredNewPassword()
+	{
+		return "{\"reason\": \"The new Password can´t be empty\"}";
+	}
 }

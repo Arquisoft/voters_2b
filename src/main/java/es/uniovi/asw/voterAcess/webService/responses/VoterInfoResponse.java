@@ -16,10 +16,10 @@ public class VoterInfoResponse {
 	}
 	public VoterInfoResponse(Voter voter) {
 		super();
-		this.email = voter.getEmail();
-		this.name = voter.getName();
-		this.nif = voter.getNIF();
-		this.poolingState = voter.getPollingPlace();
+		setEmail(voter.getEmail());
+		setName(voter.getName());
+		setNif(voter.getNIF());
+		setPoolingState(voter.getPollingPlace());
 	}
 	public String getEmail() {
 		return email;

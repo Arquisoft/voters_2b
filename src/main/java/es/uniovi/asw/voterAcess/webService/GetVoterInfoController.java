@@ -58,6 +58,7 @@ public class GetVoterInfoController implements GetVoterInfo
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseNotFound()
 	{
-		return HttpStatus.NOT_FOUND.getReasonPhrase();
+		return "{\"reason\": \""+HttpStatus.NOT_FOUND.getReasonPhrase()+"\"}";
 	}
+	
 }

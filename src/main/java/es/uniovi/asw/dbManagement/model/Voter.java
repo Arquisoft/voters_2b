@@ -25,13 +25,6 @@ public class Voter {
 	
 	protected Voter() {}
 
-	public Voter(String name, String NIF, String email, int pollingPlace) {
-		this.name = name;
-		this.NIF = NIF;
-		this.email = email;
-		this.pollingPlace = pollingPlace;
-	}
-
 	public Voter(String name, String NIF, String email, int pollingPlace, String password) {
 		this.name = name;
 		this.NIF = NIF;

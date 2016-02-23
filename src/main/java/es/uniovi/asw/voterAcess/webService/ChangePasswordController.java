@@ -59,13 +59,13 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			
 			else 
 			{
-				throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.UNKNOWN_ERROR);
+				throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.PASSWORDS_DONT_MATCH);
 			}
 		}
 		
 		else // Voter no encontrado
 		{
-			throw new UserNotFoundErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND);
 		}
 	}
 }

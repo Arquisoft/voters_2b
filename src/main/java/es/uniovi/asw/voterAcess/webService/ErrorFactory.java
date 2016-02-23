@@ -3,6 +3,8 @@ package es.uniovi.asw.voterAcess.webService;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.PasswordsDontMatchErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.UnknownErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
@@ -13,7 +15,7 @@ import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorRes
  */
 public class ErrorFactory
 {
-	public static enum Errors {USER_NOT_FOUND, INVALID_PASSWORD, PASSWORDS_DONT_MATCH, UNKNOWN_ERROR};
+	public static enum Errors {USER_NOT_FOUND, INVALID_PASSWORD, PASSWORDS_DONT_MATCH, REQUIRED_USER, REQUIRED_PASSWORD, UNKNOWN_ERROR};
 	
 	
 	/**
@@ -37,6 +39,12 @@ public class ErrorFactory
 			case PASSWORDS_DONT_MATCH:
 				return new PasswordsDontMatchErrorResponse();
 			
+			case REQUIRED_USER:
+				return new RequiredUserErrorResponse();
+				
+			case REQUIRED_PASSWORD:
+				return new RequiredPasswordErrorResponse();
+				
 			default:	// UNKNOWN_ERROR (Se desconoce la causa del error)
 				return new UnknownErrorResponse();
 		}

@@ -79,7 +79,7 @@ public class GetVoterInfoController implements GetVoterInfo
 		return "{\"reason\": \"The field 'User' is required\"}";
 	}
 	
-	@ExceptionHandler(RequiredUserErrorResponse.class)
+	@ExceptionHandler(RequiredPasswordErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseRequiredPassword()
 	{

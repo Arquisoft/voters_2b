@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.GetVoterInfo;
-import es.uniovi.asw.voterAcess.webService.responses.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.VoterInfoResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 
 @RestController
@@ -50,11 +50,11 @@ public class GetVoterInfoController implements GetVoterInfo
 			return new VoterInfoResponse(user);
 		
 		else
-			throw new ErrorResponse(); //404 exception
+			throw new UserNotFoundErrorResponse(); //404 exception
 	}
 	
 	
-	@ExceptionHandler(ErrorResponse.class)
+	@ExceptionHandler(UserNotFoundErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseNotFound()
 	{

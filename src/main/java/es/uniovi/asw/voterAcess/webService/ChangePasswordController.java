@@ -15,7 +15,7 @@ import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.ChangePassword;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
-import es.uniovi.asw.voterAcess.webService.responses.ErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 @RestController
 @Controller
@@ -25,11 +25,13 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 	
 	private final VoterRepository voterRepository;
 	
+	
 	@Autowired
 	ChangePasswordController(VoterRepository voterRepository)
 	{
 		this.voterRepository = voterRepository;
 	}
+	
 	
 	@RequestMapping(value="/changePassword",
 			method=RequestMethod.POST, 
@@ -37,6 +39,12 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			produces="application/json")
 	public String changePassword(@RequestBody ChangePasswordResponse data)
 	{
+		for (Voter v : this.voterRepository.findAll())
+		{
+			log.info(v.toString());
+		}
+		
+		
 		Voter voter = this.voterRepository.findByEmail(data.getEmail());
 		
 		if (voter != null)
@@ -51,28 +59,13 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			
 			else 
 			{
-				
+				throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.UNKNOWN_ERROR);
 			}
 		}
 		
 		else // Voter no encontrado
 		{
-			throw new ErrorResponse();
+			throw new UserNotFoundErrorResponse();
 		}
-		
-		for (Voter v : this.voterRepository.findAll())
-		{
-			log.info(v.toString());
-		}
-		
-		throw new ErrorResponse();
-	}
-	
-	
-	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
-	public ModelAndView getPagechangePassword()
-	{
-		ModelAndView mav = new ModelAndView("user");
-		return mav;
 	}
 }

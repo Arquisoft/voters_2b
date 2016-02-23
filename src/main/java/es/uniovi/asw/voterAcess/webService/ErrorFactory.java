@@ -1,5 +1,6 @@
 package es.uniovi.asw.voterAcess.webService;
 
+import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.PasswordsDontMatchErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.UnknownErrorResponse;
@@ -23,7 +24,7 @@ public class ErrorFactory
 	private ErrorFactory() {	}
 	
 	
-	public static RuntimeException getErrorResponse(Errors causaError)
+	public static ErrorResponse getErrorResponse(Errors causaError)
 	{
 		switch (causaError)
 		{

@@ -221,9 +221,8 @@ public class RestControllerTest
 		response = template.postForEntity(userURI, new PeticionServicioWeb("alf@hotmail.com", ""), String.class);
 		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
 		
-		//Cambio de constraseña en blanco
 		String passwordURI = base.toString() + "/changePassword";
-		
+		//Cambio de constraseña en blanco
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("PaGu@terra.com", "3",""), String.class);
 		assertThat(response.getBody(), equalTo("{\"reason\": \"The new Password can´t be empty\"}"));
 		
@@ -233,6 +232,22 @@ public class RestControllerTest
 		response = template.postForEntity(userURI, new PeticionServicioWeb("jk@gmail.com", "1"), String.class);
 		assertThat(response.getBody(), 
 				equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
+		
+		//Cambio de constraseña con usuario en blanco
+//		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "3", "22"), String.class);
+//		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+//		
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "1", "44"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		
+		//Cambio de constraseña con constraseña en blanco
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("fcano@terra.com", "", "23"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
+		
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("diana23@hotmail.com", "", "25"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
+		
+		
 	}
 	public class PeticionServicioWeb
 	{

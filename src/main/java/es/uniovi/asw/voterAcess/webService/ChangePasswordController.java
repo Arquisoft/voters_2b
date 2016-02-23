@@ -51,6 +51,10 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 
 		log.info("Password: "+data.getPassword()+" New Password: "+data.getNewPassword());
 		
+		if(data.getEmail().equals(""))
+			throw new RequiredUserErrorResponse();
+		if(data.getPassword().equals(""))
+			throw new RequiredPasswordErrorResponse();
 		if(data.getNewPassword().equals(""))
 			throw new RequiredNewPasswordErrorResponse();
 		
@@ -84,6 +88,20 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 	public String passwordConflict()
 	{
 		return "{\"reason\": \"Password incorrect\"}";
+	}
+	
+	@ExceptionHandler(RequiredUserErrorResponse.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseRequiredUser()
+	{
+		return "{\"reason\": \"The field 'User' is required\"}";
+	}
+	
+	@ExceptionHandler(RequiredPasswordErrorResponse.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseRequiredPassword()
+	{
+		return "{\"reason\": \"The field 'Password' is required\"}";
 	}
 	
 	@ExceptionHandler(RequiredNewPasswordErrorResponse.class)

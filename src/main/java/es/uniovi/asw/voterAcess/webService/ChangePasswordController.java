@@ -3,25 +3,27 @@ package es.uniovi.asw.voterAcess.webService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebMvcProperties.View;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.ChangePassword;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
+
 
 @RestController
 @Controller
-public class ChangePasswordController implements ChangePassword{
-
-private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController.class);
+public class ChangePasswordController implements ChangePassword
+{
+	private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController.class);
 	
 	private final VoterRepository voterRepository;
 	
@@ -67,5 +69,13 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 		{
 			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND);
 		}
+	}
+	
+	
+	@ExceptionHandler(ErrorResponse.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseNotFound()
+	{
+		return "{\"reason\": \""+HttpStatus.NOT_FOUND.getReasonPhrase()+"\"}";
 	}
 }

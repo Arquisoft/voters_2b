@@ -53,7 +53,7 @@ public class GetVoterInfoController implements GetVoterInfo
 			
 			else
 			{
-				throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND);
+				throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.INVALID_PASSWORD);
 			}
 		}
 		

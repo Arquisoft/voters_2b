@@ -15,4 +15,10 @@ public class RequiredUserErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"The field 'User' is required\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "The field 'User' is required";
+	}
 }

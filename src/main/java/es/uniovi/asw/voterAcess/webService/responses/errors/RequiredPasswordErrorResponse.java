@@ -15,4 +15,10 @@ public class RequiredPasswordErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"The field 'Password' is required\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "The field 'Password' is required";
+	}
 }

@@ -277,7 +277,7 @@ public class RestControllerTest
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>Error de inicio de sesion</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
 						+ "</html>").replace(" ", "")));
 	}
 	

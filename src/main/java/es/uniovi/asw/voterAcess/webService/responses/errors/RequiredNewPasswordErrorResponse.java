@@ -15,4 +15,10 @@ public class RequiredNewPasswordErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"The new Password can´t be empty\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "The new Password can´t be empty";
+	}
 }

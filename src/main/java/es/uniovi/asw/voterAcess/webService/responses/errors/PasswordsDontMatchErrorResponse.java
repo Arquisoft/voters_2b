@@ -15,4 +15,10 @@ public class PasswordsDontMatchErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"Passwords don't match\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "Passwords don't match";
+	}
 }

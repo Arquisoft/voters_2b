@@ -15,4 +15,10 @@ public class UserNotFoundErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"User not found\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "User not found";
+	}
 }

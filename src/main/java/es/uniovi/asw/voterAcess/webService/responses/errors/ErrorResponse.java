@@ -12,4 +12,6 @@ public abstract class ErrorResponse extends RuntimeException
 	
 	
 	public abstract String getMessageJSONFormat();
+	
+	public abstract String getMessageStringFormat();
 }

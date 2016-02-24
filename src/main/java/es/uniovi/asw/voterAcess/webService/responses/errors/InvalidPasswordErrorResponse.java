@@ -15,4 +15,10 @@ public class InvalidPasswordErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"Password incorrect\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "Password incorrect";
+	}
 }

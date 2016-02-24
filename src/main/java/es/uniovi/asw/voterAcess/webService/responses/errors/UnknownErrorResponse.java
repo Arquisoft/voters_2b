@@ -15,4 +15,10 @@ public class UnknownErrorResponse extends ErrorResponse
 	{
 		return "{\"reason\": \"Unknown error\"}";
 	}
+
+
+	@Override
+	public String getMessageStringFormat() {
+		return "Unknown error";
+	}
 }

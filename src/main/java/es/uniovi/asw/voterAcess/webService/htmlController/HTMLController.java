@@ -15,6 +15,9 @@ import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 
 /**
@@ -47,8 +50,11 @@ public class HTMLController
 	{
 		String[] parametro = parametros.split("&");
 		
-		if(parametro[0].split("=").length<=1 || parametro[1].split("=").length<=1)
-			return "error";
+		if(parametro[0].split("=").length<=1)
+			throw new RequiredUserErrorResponse();
+		if(parametro[1].split("=").length<=1)
+			throw new RequiredPasswordErrorResponse();
+		
 		String email = parametro[0].split("=")[1].replace("%40", "@");
 		String contraseña = parametro[1].split("=")[1];
 
@@ -63,11 +69,18 @@ public class HTMLController
 			model.addAttribute("nif", user.getNIF());
 			model.addAttribute("polling", user.getPollingPlace());
 		}else{
-			return "error";
+			throw new UserNotFoundErrorResponse();
+			
 		}
-		
 		
 		return "result";
 	}
 	
+	@ExceptionHandler(ErrorResponse.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleErrorResponseNotFound(ErrorResponse excep, Model model)
+	{
+		model.addAttribute("error", excep.getMessageStringFormat());
+		return "error";
+	}
 }

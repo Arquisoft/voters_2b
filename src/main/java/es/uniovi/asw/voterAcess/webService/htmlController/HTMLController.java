@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
@@ -26,11 +25,8 @@ public class HTMLController
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String userHTMLget(@RequestParam(value = "name", required = false, defaultValue = "World") String name,
-			Model model)
+	public String userHTMLget(Model model)
 	{
-		model.addAttribute("name", name);
-		
 		return "user";
 	}
 	

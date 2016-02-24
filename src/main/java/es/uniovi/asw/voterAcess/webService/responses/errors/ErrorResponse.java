@@ -1,4 +1,4 @@
-﻿package es.uniovi.asw.voterAcess.webService.responses.errors;
+package es.uniovi.asw.voterAcess.webService.responses.errors;
 
 
 /**

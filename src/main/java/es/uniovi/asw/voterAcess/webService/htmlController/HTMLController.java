@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import es.uniovi.asw.dbManagement.GetVoter;
+import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
@@ -56,7 +58,8 @@ public class HTMLController
 		else if(contraseña.equals(""))
 			throw new RequiredPasswordErrorResponse();
 		
-		Voter user = this.voterRepository.findByEmail(email);
+		GetVoter gv = new GetVoterDB(this.voterRepository);
+		Voter user = gv.getVoter(email);
 		
 		
 		if (user != null)

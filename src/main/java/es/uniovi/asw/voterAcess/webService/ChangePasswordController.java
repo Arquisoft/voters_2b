@@ -50,13 +50,11 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 	{
 		log.info("Password: " + data.getPassword() + " New Password: " + data.getNewPassword());
 		
-		if(data.getEmail().equals(""))
+		if(data.getEmail().compareTo("")==0)
 			throw new RequiredUserErrorResponse();
-		
-		else if(data.getPassword().equals(""))
+		if(data.getPassword().compareTo("")==0)
 			throw new RequiredPasswordErrorResponse();
-		
-		else if(data.getNewPassword().equals(""))
+		if(data.getNewPassword().compareTo("")==0)
 			throw new RequiredNewPasswordErrorResponse();
 		
 		

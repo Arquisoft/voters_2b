@@ -10,7 +10,6 @@ public class InvalidPasswordErrorResponse extends ErrorResponse
 	private static final long serialVersionUID = 1L;
 	
 	
-	
 	public String getMessageJSONFormat()
 	{
 		return "{\"reason\": \"Password incorrect\"}";

@@ -1,4 +1,4 @@
-package es.uniovi.asw.voterAcess.webService.responses.errors;
+﻿package es.uniovi.asw.voterAcess.webService.responses.errors;
 
 
 /**
@@ -11,5 +11,5 @@ public abstract class ErrorResponse extends RuntimeException
 	protected static final long serialVersionUID = 1L;
 	
 	
-	//public abstract String getMessageJSONFormat();
+//	public abstract String getMessageJSONFormat();
 }

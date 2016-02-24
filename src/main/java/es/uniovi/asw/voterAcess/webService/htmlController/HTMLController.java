@@ -1,24 +1,17 @@
 package es.uniovi.asw.voterAcess.webService.htmlController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import es.uniovi.asw.dbManagement.GetVoter;
 import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 
 /**
@@ -50,38 +43,24 @@ public class HTMLController
 	public String userHTMLpost(@RequestBody String parametros, Model model)
 	{
 		String[] parametro = parametros.split("&");
+		
+		if(parametro[0].split("=").length<=1 || parametro[1].split("=").length<=1)
+			return "error";
 		String email = parametro[0].split("=")[1].replace("%40", "@");
 		String contraseña = parametro[1].split("=")[1];
-		
-		if(email.equals(""))
-			throw new RequiredUserErrorResponse();
-		
-		else if(contraseña.equals(""))
-			throw new RequiredPasswordErrorResponse();
+
 		
 		GetVoter gv = new GetVoterDB(this.voterRepository);
-		Voter user = gv.getVoter(email);
+		Voter user = gv.getVoter(email);	
 		
-		
-		if (user != null)
+		if (user != null && user.getPassword().compareTo(contraseña) == 0)
 		{
-			if(user.getPassword().compareTo(contraseña) == 0)
-			{
-				model.addAttribute("email", user.getEmail());
-				model.addAttribute("name", user.getName());
-				model.addAttribute("nif", user.getNIF());
-				model.addAttribute("polling", user.getPollingPlace());
-			}
-			
-			else // Contraseña incorrecta
-			{
-				throw new InvalidPasswordErrorResponse();
-			}
-		}
-		
-		else
-		{
-			throw new UserNotFoundErrorResponse();
+			model.addAttribute("email", user.getEmail());
+			model.addAttribute("name", user.getName());
+			model.addAttribute("nif", user.getNIF());
+			model.addAttribute("polling", user.getPollingPlace());
+		}else{
+			return "error";
 		}
 		
 		

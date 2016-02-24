@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.uniovi.asw.dbManagement.GetVoter;
+import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 
@@ -42,8 +44,8 @@ public class HTMLController
 		String email = parametro[0].split("=")[1].replace("%40", "@");
 		String contraseña = parametro[1].split("=")[1];
 
-		Voter user = this.voterRepository.findByEmail(email);
-		
+		GetVoter gv = new GetVoterDB(this.voterRepository);
+		Voter user = gv.getVoter(email);	
 		
 		if (user != null && user.getPassword().compareTo(contraseña) == 0)
 		{

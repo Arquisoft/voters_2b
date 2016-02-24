@@ -234,9 +234,9 @@ public class RestControllerTest
 				equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 		
 		//Cambio de constraseña con usuario en blanco
-//		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "3", "22"), String.class);
-//		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
-//		
+		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "3", "22"), String.class);
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+	
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "1", "44"), String.class);
 		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
 		
@@ -247,6 +247,25 @@ public class RestControllerTest
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("diana23@hotmail.com", "", "25"), String.class);
 		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Password' is required\"}"));
 		
+		
+	}
+	
+	@Test
+	public void testHtmlController(){
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/";
+		
+		//Usuario en blanco
+		response = template.getForEntity(userURI, String.class);
+		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
+				, equalTo(new String("<!DOCTYPE HTML><html><head><title>GettingStarted:Serving WebContent</title>"
+				+ "<metahttp-equiv=\"Content-Type\"content=\"text/html;charset=UTF-8\"/></head><body><h1>IniciarSesion</h1>"
+				+ "<form action=\"validarse\"method=\"post\"><table align=\"left\"><tr><tdalign=\"right\">Email:</td>"
+				+ "<td><inputtype=\"text\"name=\"email\"align=\"left\"size=\"15\"/></td></tr><tr><td align=\"right\">Contraseña:</td>"
+				+ "<td><inputtype=\"password\"name=\"password\"align=\"left\"size=\"15\"/></td></tr><tr><td><inputtype=\"submit\"value=\"Enviar\"/></td>"
+				+ "</tr></table></form></body></html>").replace(" ", "")));
+		
+		response = template.postForEntity(userURI, "", String.class);
 		
 	}
 	public class PeticionServicioWeb

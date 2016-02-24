@@ -42,9 +42,9 @@ public class GetVoterInfoController implements GetVoterInfo
 	{
 		log.info("Datos peticion: "+voter.getEmail()+" "+voter.getPassword());
 
-		if(voter.getEmail().equals(""))
+		if(voter.getEmail().compareTo("")==0)
 			throw new RequiredUserErrorResponse();
-		if(voter.getPassword().equals(""))
+		if(voter.getPassword().compareTo("")==0)
 			throw new RequiredPasswordErrorResponse();
 		
 		GetVoter gv = new GetVoterDB(this.voterRepository);

@@ -272,6 +272,13 @@ public class RestControllerTest
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
 						+ "<p>Email: jk@gmail.com</p><p>Name: Jack</p><p>NIF: 980151</p><p>PoolingState: 1</p></body>"
 						+ "</html>").replace(" ", "")));
+		
+		response = template.postForEntity(userValidarseURI, "nombre=&password=", String.class);
+		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
+				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
+						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
+						+ "<p>Error de inicio de sesion</p><a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "</html>").replace(" ", "")));
 	}
 	public class PeticionServicioWeb
 	{

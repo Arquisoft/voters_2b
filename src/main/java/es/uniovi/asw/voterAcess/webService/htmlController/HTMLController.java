@@ -42,9 +42,13 @@ public class HTMLController
 	public String userHTMLpost(@RequestBody String parametros, Model model)
 	{
 		String[] parametro = parametros.split("&");
+		
+		if(parametro[0].split("=").length<=1 || parametro[1].split("=").length<=1)
+			return "error";
 		String email = parametro[0].split("=")[1].replace("%40", "@");
 		String contraseña = parametro[1].split("=")[1];
 
+		
 		GetVoter gv = new GetVoterDB(this.voterRepository);
 		Voter user = gv.getVoter(email);	
 		
@@ -54,6 +58,8 @@ public class HTMLController
 			model.addAttribute("name", user.getName());
 			model.addAttribute("nif", user.getNIF());
 			model.addAttribute("polling", user.getPollingPlace());
+		}else{
+			return "error";
 		}
 		
 		

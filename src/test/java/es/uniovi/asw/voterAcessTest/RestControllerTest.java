@@ -254,6 +254,7 @@ public class RestControllerTest
 	public void testHtmlController(){
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/";
+		String userValidarseURI = base.toString() + "/validarse";
 		
 		//Usuario en blanco
 		response = template.getForEntity(userURI, String.class);
@@ -265,8 +266,12 @@ public class RestControllerTest
 				+ "<td><inputtype=\"password\"name=\"password\"align=\"left\"size=\"15\"/></td></tr><tr><td><inputtype=\"submit\"value=\"Enviar\"/></td>"
 				+ "</tr></table></form></body></html>").replace(" ", "")));
 		
-		response = template.postForEntity(userURI, "", String.class);
-		
+		response = template.postForEntity(userValidarseURI, "nombre=jk@gmail.com&password=1", String.class);
+		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
+				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
+						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
+						+ "<p>Email: jk@gmail.com</p><p>Name: Jack</p><p>NIF: 980151</p><p>PoolingState: 1</p></body>"
+						+ "</html>").replace(" ", "")));
 	}
 	public class PeticionServicioWeb
 	{

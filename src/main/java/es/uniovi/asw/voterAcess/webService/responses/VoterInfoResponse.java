@@ -5,54 +5,70 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import es.uniovi.asw.dbManagement.model.Voter;
 
+
 @XmlRootElement(name = "VoterInfoResponse")
-public class VoterInfoResponse {
+public class VoterInfoResponse
+{
 	private String email;
 	private String name;
 	private String nif;
 	private int poolingState;
-
-	public VoterInfoResponse() {
+	
+	
+	public VoterInfoResponse()
+	{
 	}
-	public VoterInfoResponse(Voter voter) {
+	
+	public VoterInfoResponse(Voter voter)
+	{
 		super();
 		setEmail(voter.getEmail());
 		setName(voter.getName());
 		setNif(voter.getNIF());
 		setPoolingState(voter.getPollingPlace());
 	}
-	public String getEmail() {
+	
+	public String getEmail()
+	{
 		return email;
 	}
 	
 	@XmlElement
-	public void setEmail(String email) {
+	public void setEmail(String email)
+	{
 		this.email = email;
 	}
-	public String getName() {
+	
+	public String getName()
+	{
 		return name;
 	}
 	
 	@XmlElement
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
-	public String getNif() {
+	
+	public String getNif()
+	{
 		return nif;
 	}
 	
 	@XmlElement
-	public void setNif(String nif) {
+	public void setNif(String nif)
+	{
 		this.nif = nif;
 	}
-	public int getPoolingState() {
+	
+	public int getPoolingState()
+	{
 		return poolingState;
 	}
 	
-	 @XmlElement
-	public void setPoolingState(int poolingState) {
+	@XmlElement
+	public void setPoolingState(int poolingState)
+	 {
 		this.poolingState = poolingState;
-	}
-	
-	
+	}	
 }

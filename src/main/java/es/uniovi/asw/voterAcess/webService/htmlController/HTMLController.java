@@ -11,6 +11,11 @@ import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 
 
+/**
+ * Se utiliza para gestionar las peticiones de tipo "get" que
+ * son recibidas por el servidor web
+ *
+ */
 @Controller
 public class HTMLController
 {

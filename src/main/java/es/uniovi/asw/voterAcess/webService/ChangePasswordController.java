@@ -48,15 +48,17 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			produces="application/json")
 	public String changePassword(@RequestBody ChangePasswordResponse data)
 	{
-
-		log.info("Password: "+data.getPassword()+" New Password: "+data.getNewPassword());
+		log.info("Password: " + data.getPassword() + " New Password: " + data.getNewPassword());
 		
 		if(data.getEmail().equals(""))
 			throw new RequiredUserErrorResponse();
-		if(data.getPassword().equals(""))
+		
+		else if(data.getPassword().equals(""))
 			throw new RequiredPasswordErrorResponse();
-		if(data.getNewPassword().equals(""))
+		
+		else if(data.getNewPassword().equals(""))
 			throw new RequiredNewPasswordErrorResponse();
+		
 		
 		UpdatePassword cp = new UpdatePasswordDB(this.voterRepository);
 		GetVoter gv = new GetVoterDB(this.voterRepository);
@@ -67,10 +69,12 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 			if(cp.changePassword(data.getPassword(),data.getNewPassword(), voter))
 			{
 				return "{\"Resultado\":\"Contraseña cambiada correctamente\"}";
-			}else {
-				throw new InvalidPasswordErrorResponse();
 			}
-		}else // Voter no encontrado
+			
+			else {	throw new InvalidPasswordErrorResponse();	}
+		}
+		
+		else // Voter no encontrado
 		{
 			throw new UserNotFoundErrorResponse();
 		}

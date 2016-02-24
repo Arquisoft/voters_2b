@@ -1,4 +1,4 @@
-package es.uniovi.asw.voterAcess.webService;
+package es.uniovi.asw.voterAcess.Infrastructure;
 
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
@@ -23,7 +23,10 @@ public class ErrorFactory
 	 * sólo es devolver el error apropiado para la causa que se le indique.
 	 * 
 	 */
-	private ErrorFactory() {	}
+	private ErrorFactory()
+	{
+		
+	}
 	
 	
 	public static ErrorResponse getErrorResponse(Errors causaError)
@@ -35,16 +38,16 @@ public class ErrorFactory
 			
 			case INVALID_PASSWORD:
 				return new InvalidPasswordErrorResponse();
-				
+			
 			case PASSWORDS_DONT_MATCH:
 				return new PasswordsDontMatchErrorResponse();
 			
 			case REQUIRED_USER:
 				return new RequiredUserErrorResponse();
-				
+			
 			case REQUIRED_PASSWORD:
 				return new RequiredPasswordErrorResponse();
-				
+			
 			default:	// UNKNOWN_ERROR (Se desconoce la causa del error)
 				return new UnknownErrorResponse();
 		}

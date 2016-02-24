@@ -8,4 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RequiredNewPasswordErrorResponse extends ErrorResponse
 {
 	private static final long serialVersionUID = 1L;
+
+	
+	@Override
+	public String getMessageJSONFormat()
+	{
+		return "{\"reason\": \"The new Password can´t be empty\"}";
+	}
 }

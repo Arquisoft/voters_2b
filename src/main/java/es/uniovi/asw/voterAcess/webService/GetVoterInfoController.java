@@ -16,6 +16,7 @@ import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.GetVoterInfo;
 import es.uniovi.asw.voterAcess.webService.responses.VoterInfoResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
@@ -63,31 +64,10 @@ public class GetVoterInfoController implements GetVoterInfo
 	}
 	
 	
-	@ExceptionHandler(UserNotFoundErrorResponse.class)
+	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseNotFound()
+	public String handleErrorResponses(ErrorResponse excep)
 	{
-		return "{\"reason\": \"User not found\"}";
-	}
-	
-	@ExceptionHandler(InvalidPasswordErrorResponse.class)
-	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String passwordConflict()
-	{
-		return "{\"reason\": \"Password incorrect\"}";
-	}
-	
-	@ExceptionHandler(RequiredUserErrorResponse.class)
-	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseRequiredUser()
-	{
-		return "{\"reason\": \"The field 'User' is required\"}";
-	}
-	
-	@ExceptionHandler(RequiredPasswordErrorResponse.class)
-	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseRequiredPassword()
-	{
-		return "{\"reason\": \"The field 'Password' is required\"}";
+		return excep.getMessageJSONFormat();
 	}
 }

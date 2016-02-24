@@ -14,6 +14,7 @@ import es.uniovi.asw.dbManagement.GetVoter;
 import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
+import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
@@ -88,10 +89,10 @@ public class HTMLController
 	}
 	
 	
-	@ExceptionHandler(UserNotFoundErrorResponse.class)
+	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseNotFound(UserNotFoundErrorResponse excep)
+	public String handleErrorResponseNotFound(ErrorResponse excep)
 	{
-		return "{\"reason\": \""+ excep.getMessage() + "\"}";
+		return excep.getMessageJSONFormat();
 	}
 }

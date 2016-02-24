@@ -8,4 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RequiredUserErrorResponse extends ErrorResponse
 {
 	private static final long serialVersionUID = 1L;
+	
+	
+	@Override
+	public String getMessageJSONFormat()
+	{
+		return "{\"reason\": \"The field 'User' is required\"}";
+	}
 }

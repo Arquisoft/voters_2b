@@ -8,4 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class PasswordsDontMatchErrorResponse extends ErrorResponse
 {
 	private static final long serialVersionUID = 1L;
+	
+	
+	@Override
+	public String getMessageJSONFormat()
+	{
+		return "{\"reason\": \"Passwords don't match\"}";
+	}
 }

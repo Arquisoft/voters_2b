@@ -273,6 +273,8 @@ public class RestControllerTest
 						+ "<p>Email: jk@gmail.com</p><p>Name: Jack</p><p>NIF: 980151</p><p>PoolingState: 1</p></body>"
 						+ "</html>").replace(" ", "")));
 	}
+	
+	
 	public class PeticionServicioWeb
 	{
 		private String email;
@@ -346,11 +348,13 @@ public class RestControllerTest
 			this.password = password;
 		}
 
-		public String getNewPassword() {
+		public String getNewPassword()
+		{
 			return newPassword;
 		}
 
-		public void setNewPassword(String newPassword) {
+		public void setNewPassword(String newPassword)
+		{
 			this.newPassword = newPassword;
 		}
 	}

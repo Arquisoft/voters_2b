@@ -9,3 +9,8 @@ notifications:
       - uo239995@uniovi.es
     on_success: change
     on_failure: always
+  before_script:
+  - pip install --user codecov
+
+after_success:
+  - codecov

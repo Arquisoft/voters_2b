@@ -12,6 +12,11 @@ Authors
 * Sergio Moradas Quintana
 * Marcelo Torrejón Manso
 
+Tools
+========
+* Database: H2 Database
+* IDE: Spring Tool Suite
+
 
 
 

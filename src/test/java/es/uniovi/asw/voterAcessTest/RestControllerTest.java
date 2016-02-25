@@ -259,10 +259,10 @@ public class RestControllerTest
 		response = template.getForEntity(userURI, String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>GettingStarted:Serving WebContent</title>"
-				+ "<metahttp-equiv=\"Content-Type\"content=\"text/html;charset=UTF-8\"/></head><body><h1>IniciarSesion</h1>"
+				+ "<metahttp-equiv=\"Content-Type\"content=\"text/html;charset=UTF-8\"/></head><body><h1>Login</h1>"
 				+ "<form action=\"validarse\"method=\"post\"><table align=\"left\"><tr><tdalign=\"right\">Email:</td>"
-				+ "<td><inputtype=\"text\"name=\"email\"align=\"left\"size=\"15\"/></td></tr><tr><td align=\"right\">Contraseña:</td>"
-				+ "<td><inputtype=\"password\"name=\"password\"align=\"left\"size=\"15\"/></td></tr><tr><td><inputtype=\"submit\"value=\"Enviar\"/></td>"
+				+ "<td><inputtype=\"text\"name=\"email\"align=\"left\"size=\"15\"/></td></tr><tr><td align=\"right\">Password:</td>"
+				+ "<td><inputtype=\"password\"name=\"password\"align=\"left\"size=\"15\"/></td></tr><tr><td><inputtype=\"submit\"value=\"Send\"/></td>"
 				+ "</tr></table></form></body></html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=jk@gmail.com&password=1", String.class);
@@ -272,60 +272,67 @@ public class RestControllerTest
 						+ "<p>Email: jk@gmail.com</p><p>Name: Jack</p><p>NIF: 980151</p><p>PoolingState: 1</p></body>"
 						+ "</html>").replace(" ", "")));
 		
+		response = template.postForEntity(userValidarseURI, "nombre=vinu@hotmail.com&password=3", String.class);
+		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
+				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
+						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
+						+ "<p>Email: vinu@hotmail.com</p><p>Name: Vinuesa</p><p>NIF: 514685</p><p>PoolingState: 3</p></body>"
+						+ "</html>").replace(" ", "")));
+		
 		response = template.postForEntity(userValidarseURI, "nombre=&password=", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=&password=123", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=diana23@hotmail.com&password=", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: The field &#39;Password&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;Password&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=vinu@hotmail.com&password=", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: The field &#39;Password&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;Password&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=diana23@hotmail.com&password=36", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: Password incorrect</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: Password incorrect</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=javiG_6@gmail.com&password=90", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: Password incorrect</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: Password incorrect</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=diana22@hotmail.com&password=36", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: User not found</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: User not found</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=javiGonz_6@gmail.com&password=09", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>Error de inicio de sesion</p><p>Error: User not found</p>"+"<a id=\"registrarse\" href=\"/\">Volver a intentar</a></body>"
+						+ "<p>An error has occurred</p><p>Error: User not found</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 	}
 	

@@ -11,20 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import es.uniovi.asw.dbManagement.UpdatePassword;
+
 import es.uniovi.asw.dbManagement.GetVoter;
-import es.uniovi.asw.dbManagement.impl.UpdatePasswordDB;
+import es.uniovi.asw.dbManagement.UpdatePassword;
 import es.uniovi.asw.dbManagement.impl.GetVoterDB;
+import es.uniovi.asw.dbManagement.impl.UpdatePasswordDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.ChangePassword;
+import es.uniovi.asw.voterAcess.Infrastructure.ErrorFactory;
 import es.uniovi.asw.voterAcess.webService.responses.ChangePasswordResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredNewPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 
 @RestController
@@ -52,11 +49,13 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 		log.info("Password: " + data.getPassword() + " New Password: " + data.getNewPassword());
 		
 		if(data.getEmail().compareTo("")==0)
-			throw new RequiredUserErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.REQUIRED_EMAIL);
+		
 		if(data.getPassword().compareTo("")==0)
-			throw new RequiredPasswordErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.REQUIRED_PASSWORD);
+		
 		if(data.getNewPassword().compareTo("")==0)
-			throw new RequiredNewPasswordErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.REQUIRED_NEW_PASSWORD);
 		
 		
 		UpdatePassword cp = new UpdatePasswordDB(this.voterRepository);
@@ -70,12 +69,12 @@ private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController
 				return "{\"Resultado\":\"Contraseña cambiada correctamente\"}";
 			}
 			
-			else {	throw new InvalidPasswordErrorResponse();	}
+			else { throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.INCORRECT_PASSWORD); }
 		}
 		
 		else // Voter no encontrado
 		{
-			throw new UserNotFoundErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND);
 		}
 	}
 

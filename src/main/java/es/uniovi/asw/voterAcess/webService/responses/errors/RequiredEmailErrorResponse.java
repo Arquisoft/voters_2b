@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
-@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="The field 'User' is required")
-public class RequiredUserErrorResponse extends ErrorResponse
+@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="The field 'Email' is required")
+public class RequiredEmailErrorResponse extends ErrorResponse
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -13,12 +13,13 @@ public class RequiredUserErrorResponse extends ErrorResponse
 	@Override
 	public String getMessageJSONFormat()
 	{
-		return "{\"reason\": \"The field 'User' is required\"}";
+		return "{\"reason\": \"The field 'Email' is required\"}";
 	}
 
 
 	@Override
-	public String getMessageStringFormat() {
-		return "The field 'User' is required";
+	public String getMessageStringFormat()
+	{
+		return "The field 'Email' is required";
 	}
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Password incorrect")
-public class InvalidPasswordErrorResponse extends ErrorResponse
+public class IncorrectPasswordErrorResponse extends ErrorResponse
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -18,7 +18,8 @@ public class InvalidPasswordErrorResponse extends ErrorResponse
 
 
 	@Override
-	public String getMessageStringFormat() {
+	public String getMessageStringFormat()
+	{
 		return "Password incorrect";
 	}
 }

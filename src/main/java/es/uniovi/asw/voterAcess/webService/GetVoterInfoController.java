@@ -10,17 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 import es.uniovi.asw.dbManagement.GetVoter;
 import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.GetVoterInfo;
+import es.uniovi.asw.voterAcess.Infrastructure.ErrorFactory;
 import es.uniovi.asw.voterAcess.webService.responses.VoterInfoResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 @RestController
 public class GetVoterInfoController implements GetVoterInfo
@@ -28,6 +26,7 @@ public class GetVoterInfoController implements GetVoterInfo
 	private static final Logger log = LoggerFactory.getLogger(GetVoterInfoController.class);
 	
 	private final VoterRepository voterRepository;
+	
 	
 	@Autowired
 	GetVoterInfoController(VoterRepository voterRepository)
@@ -44,23 +43,23 @@ public class GetVoterInfoController implements GetVoterInfo
 		log.info("Datos peticion: "+voter.getEmail()+" "+voter.getPassword());
 		
 		if(voter.getEmail().compareTo("")==0)
-			throw new RequiredUserErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.REQUIRED_EMAIL);
 		
 		else if(voter.getPassword().compareTo("")==0)
-			throw new RequiredPasswordErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.REQUIRED_PASSWORD);
 		
 		
 		GetVoter gv = new GetVoterDB(this.voterRepository);
 		Voter user = gv.getVoter(voter.getEmail());
 		
 		if(user == null)
-			throw new UserNotFoundErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND);
 		
 		else if(user.getPassword().compareTo(voter.getPassword()) == 0)
 			return new VoterInfoResponse(user);
 		
 		else
-			throw new InvalidPasswordErrorResponse();
+			throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.INCORRECT_PASSWORD);
 	}
 	
 	

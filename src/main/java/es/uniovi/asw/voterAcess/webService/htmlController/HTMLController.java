@@ -14,11 +14,9 @@ import es.uniovi.asw.dbManagement.GetVoter;
 import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
+import es.uniovi.asw.voterAcess.Infrastructure.ErrorFactory;
+import es.uniovi.asw.voterAcess.Infrastructure.ErrorFactory.Errors;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
-import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
 /**
  * Se utiliza para gestionar las peticiones de tipo "get" que son recibidas por
@@ -26,16 +24,20 @@ import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorRes
  *
  */
 @Controller
-public class HTMLController {
+public class HTMLController
+{
 	private final VoterRepository voterRepository;
-
+	
+	
 	@Autowired
-	HTMLController(VoterRepository voterRepository) {
+	HTMLController(VoterRepository voterRepository)
+	{
 		this.voterRepository = voterRepository;
 	}
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String userHTMLget(Model model) {
+	public String userHTMLget(Model model)
+	{
 		return "user";
 	}
 
@@ -45,9 +47,10 @@ public class HTMLController {
 		String[] parametro = parametros.split("&");
 		
 		if(parametro[0].split("=").length<=1)
-			throw new RequiredUserErrorResponse();
+			throw ErrorFactory.getErrorResponse(Errors.REQUIRED_EMAIL);
+		
 		if(parametro[1].split("=").length<=1)
-			throw new RequiredPasswordErrorResponse();
+			throw ErrorFactory.getErrorResponse(Errors.REQUIRED_PASSWORD);
 		
 		String email = parametro[0].split("=")[1].replace("%40", "@");
 		String contraseña = parametro[1].split("=")[1];
@@ -56,27 +59,31 @@ public class HTMLController {
 		GetVoter gv = new GetVoterDB(this.voterRepository);
 		Voter user = gv.getVoter(email);	
 		
-		if (user != null){
-			if(user.getPassword().compareTo(contraseña) == 0){
+		if (user != null)
+		{
+			if(user.getPassword().compareTo(contraseña) == 0)
+			{
 				model.addAttribute("email", user.getEmail());
 				model.addAttribute("name", user.getName());
 				model.addAttribute("nif", user.getNIF());
 				model.addAttribute("polling", user.getPollingPlace());
-			}else{
-				throw new InvalidPasswordErrorResponse();
 			}
-		}else{
-			throw new UserNotFoundErrorResponse();
 			
+			else { throw ErrorFactory.getErrorResponse(Errors.INCORRECT_PASSWORD); }
 		}
+		
+		else { throw ErrorFactory.getErrorResponse(ErrorFactory.Errors.USER_NOT_FOUND); }
+		
 		
 		return "result";
 	}
-
+	
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseNotFound(ErrorResponse excep, Model model) {
+	public String handleErrorResponseNotFound(ErrorResponse excep, Model model)
+	{
 		model.addAttribute("error", excep.getMessageStringFormat());
+		
 		return "error";
 	}
 }

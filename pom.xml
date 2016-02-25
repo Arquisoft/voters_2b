@@ -72,6 +72,11 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>2.0</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -183,5 +188,66 @@
 			<url>https://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
-
+	
+	<!--Members -->
+	<developers>
+		<developer>
+			<id>labra</id>
+			<name>Jose Emilio Labra</name>
+			<email>labra@uniovi.es</email>
+			<organization>WESO-University of Oviedo</organization>
+			<organizationUrl>http://www.uniovi.es</organizationUrl>
+			<roles>
+				<role>Project Admin</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
+		
+		<developer>
+			<id>borjafg</id>
+			<name>Francisoco de Borja Fernández González</name>
+			<email>uo239995@uniovi.es</email>
+			<organization>University of Oviedo</organization>
+			<organizationUrl>http://www.uniovi.es</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
+		
+		<developer>
+			<id></id>
+			<name></name>
+			<email>uoxxxxxx@uniovi.es</email>
+			<organization>University of Oviedo</organization>
+			<organizationUrl>http://www.uniovi.es</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
+		
+		<developer>
+			<id></id>
+			<name></name>
+			<email>uoxxxxxx@uniovi.es</email>
+			<organization>University of Oviedo</organization>
+			<organizationUrl>http://www.uniovi.es</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
+	</developers>
+	
+	<organization>
+		<name>University of Oviedo</name>
+		<url>http://www.uniovi.es</url>
+	</organization>
+	
 </project>

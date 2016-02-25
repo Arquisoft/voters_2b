@@ -203,16 +203,18 @@ public class RestControllerTest
 		assertThat(response.getBody(), 
 				equalTo("{\"email\":\"jk@gmail.com\",\"name\":\"Jack\",\"nif\":\"980151\",\"poolingState\":1}"));
 	}
+	
 	@Test
-	public void camposEnBlanco(){
+	public void camposEnBlanco()
+	{
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/user";
 		//Usuario en blanco
 		response = template.postForEntity(userURI, new PeticionServicioWeb("", "12"), String.class);
-		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Email' is required\"}"));
 		
 		response = template.postForEntity(userURI, new PeticionServicioWeb("", "54"), String.class);
-		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Email' is required\"}"));
 		
 		//Constraseña en blanco
 		response = template.postForEntity(userURI, new PeticionServicioWeb("PaGu@terra.com", ""), String.class);
@@ -235,10 +237,10 @@ public class RestControllerTest
 		
 		//Cambio de constraseña con usuario en blanco
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "3", "22"), String.class);
-		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Email' is required\"}"));
 	
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("", "1", "44"), String.class);
-		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'User' is required\"}"));
+		assertThat(response.getBody(), equalTo("{\"reason\": \"The field 'Email' is required\"}"));
 		
 		//Cambio de constraseña con constraseña en blanco
 		response = template.postForEntity(passwordURI, new PeticionCambiarPassword("fcano@terra.com", "", "23"), String.class);
@@ -251,7 +253,8 @@ public class RestControllerTest
 	}
 	
 	@Test
-	public void testHtmlController(){
+	public void testHtmlController()
+	{
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/";
 		String userValidarseURI = base.toString() + "/validarse";
@@ -283,14 +286,14 @@ public class RestControllerTest
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>An error has occurred</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;Email&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=&password=123", String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", "")
 				, equalTo(new String("<!DOCTYPE HTML><html><head><title>Getting Started: Serving Web Content</title>"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head><body>"
-						+ "<p>An error has occurred</p><p>Error: The field &#39;User&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
+						+ "<p>An error has occurred</p><p>Error: The field &#39;Email&#39; is required</p>"+"<a id=\"registrarse\" href=\"/\">Try again</a></body>"
 						+ "</html>").replace(" ", "")));
 		
 		response = template.postForEntity(userValidarseURI, "nombre=diana23@hotmail.com&password=", String.class);

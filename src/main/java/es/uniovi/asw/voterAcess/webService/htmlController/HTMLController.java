@@ -15,36 +15,30 @@ import es.uniovi.asw.dbManagement.impl.GetVoterDB;
 import es.uniovi.asw.dbManagement.model.Voter;
 import es.uniovi.asw.dbManagement.persistence.VoterRepository;
 import es.uniovi.asw.voterAcess.webService.responses.errors.ErrorResponse;
+import es.uniovi.asw.voterAcess.webService.responses.errors.InvalidPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredPasswordErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.RequiredUserErrorResponse;
 import es.uniovi.asw.voterAcess.webService.responses.errors.UserNotFoundErrorResponse;
 
-
 /**
- * Se utiliza para gestionar las peticiones de tipo "get" que
- * son recibidas por el servidor web
+ * Se utiliza para gestionar las peticiones de tipo "get" que son recibidas por
+ * el servidor web
  *
  */
 @Controller
-public class HTMLController
-{
+public class HTMLController {
 	private final VoterRepository voterRepository;
-	
-	
+
 	@Autowired
-	HTMLController(VoterRepository voterRepository)
-	{
+	HTMLController(VoterRepository voterRepository) {
 		this.voterRepository = voterRepository;
 	}
-	
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String userHTMLget(Model model)
-	{
+	public String userHTMLget(Model model) {
 		return "user";
 	}
-	
-	
+
 	@RequestMapping(value = "/validarse", method = RequestMethod.POST)
 	public String userHTMLpost(@RequestBody String parametros, Model model)
 	{
@@ -62,12 +56,15 @@ public class HTMLController
 		GetVoter gv = new GetVoterDB(this.voterRepository);
 		Voter user = gv.getVoter(email);	
 		
-		if (user != null && user.getPassword().compareTo(contraseña) == 0)
-		{
-			model.addAttribute("email", user.getEmail());
-			model.addAttribute("name", user.getName());
-			model.addAttribute("nif", user.getNIF());
-			model.addAttribute("polling", user.getPollingPlace());
+		if (user != null){
+			if(user.getPassword().compareTo(contraseña) == 0){
+				model.addAttribute("email", user.getEmail());
+				model.addAttribute("name", user.getName());
+				model.addAttribute("nif", user.getNIF());
+				model.addAttribute("polling", user.getPollingPlace());
+			}else{
+				throw new InvalidPasswordErrorResponse();
+			}
 		}else{
 			throw new UserNotFoundErrorResponse();
 			
@@ -75,11 +72,10 @@ public class HTMLController
 		
 		return "result";
 	}
-	
+
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public String handleErrorResponseNotFound(ErrorResponse excep, Model model)
-	{
+	public String handleErrorResponseNotFound(ErrorResponse excep, Model model) {
 		model.addAttribute("error", excep.getMessageStringFormat());
 		return "error";
 	}
